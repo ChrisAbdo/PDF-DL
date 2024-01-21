@@ -1,91 +1,35 @@
-"use client"
-
 import React from "react"
-import { toast } from "sonner"
 
-import { apiUrl, placeholder } from "@/lib/constants"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
+import Examples from "@/components/examples"
+import { FadeIn } from "@/components/fade-in"
+import Navbar from "@/components/navbar"
+import PDFForm from "@/components/pdf-form"
 
 export default function Home() {
-  const [loading, setLoading] = React.useState<boolean>(false)
-  const [pdfUrl, setPdfUrl] = React.useState<string>("")
-  const [endpoint, setEndpoint] = React.useState<string>(
-    `${apiUrl}?url=${placeholder}`
-  )
-  const inputRef = React.useRef<HTMLInputElement>(null)
-
-  async function handleSubmit(e: any) {
-    e.preventDefault()
-    setLoading(true)
-
-    const start = Date.now()
-
-    try {
-      const res = await fetch(endpoint)
-      const json = await res.json() // Parse the response as JSON
-      const obj = json.url // Extract the URL from the JSON response
-
-      const end = Date.now() - start
-
-      setPdfUrl(obj) // Set the PDF URL to the extracted URL
-
-      toast.success(`Done in ${end / 1000} s`)
-    } catch (error: any) {
-      toast.error(error.message || "Something went wrong")
-    }
-
-    setLoading(false)
-  }
-
   return (
-    <div>
-      Endpoint: {endpoint}
-      <br />
-      <form
-        onSubmit={handleSubmit}
-        onChange={({ target }: any) => {
-          setEndpoint((prev) => {
-            const curr = new URL(prev)
-            const params = new URLSearchParams(curr.search)
-            params.set(target.name, target.checked || target.value)
-            if (target.type == "checkbox" && !target.checked)
-              params.delete(target.name)
-
-            curr.search = params.toString()
-
-            return curr.href
-          })
-        }}
-        className="flex w-full flex-col space-y-2 sm:space-y-4"
-      >
-        <Input
-          ref={inputRef}
-          name="url"
-          type="text"
-          placeholder="ex: https://chrisabdo.dev"
-          className="bg-muted"
-          autoComplete="off"
-          spellCheck={false}
-        />
-        {loading ? (
-          <Button disabled={loading} className="min-w-[100px]">
-            loading...
-          </Button>
-        ) : (
-          <Button type="submit" className="min-w-[100px]">
-            Screenshot
-          </Button>
-        )}
-
-        {pdfUrl && (
-          <>
-            <pre className="whitespace-pre-wrap font-mono text-xs">
-              <code className="language-html">{pdfUrl}</code>
-            </pre>
-          </>
-        )}
-      </form>
+    <div className="flex h-screen items-center justify-center">
+      <Navbar />
+      <div className="w-full py-12 md:py-24 lg:py-32">
+        <div className="container px-4 md:px-6">
+          <div className="z-50 flex flex-col items-center justify-center space-y-4 bg-background">
+            <div className="space-y-2 bg-background text-center">
+              <h1 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl lg:text-6xl">
+                Turn any page into a PDF
+              </h1>
+              <p className="mx-auto max-w-[700px] text-muted-foreground md:text-xl">
+                Enter the URL of the page you want to convert to PDF.
+              </p>
+            </div>
+            <div className="w-full max-w-md">
+              <p className="text-center">view some examples &darr;</p>
+              <Examples />
+              <div className="mt-6">
+                <PDFForm />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   )
 }
