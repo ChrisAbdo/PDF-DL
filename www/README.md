@@ -1,36 +1,45 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# PDF-DL Web Interface
+
+The `www` folder contains the front-end web interface for the PDF-DL application. It is built using Next.js 13+ and provides a user-friendly interface for converting web pages into PDFs.
+
+## Features
+
+- **User Interface**: A clean and intuitive interface for users to input URLs for PDF conversion.
+- **Real-time Feedback**: Displays conversion progress and allows users to download the PDF once ready.
+- **Accessibility**: Ensures a good level of accessibility for all users.
 
 ## Getting Started
 
-First, run the development server:
+To get the web interface running locally:
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+Visit [http://localhost:3000](http://localhost:3000) to interact with the application.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Customization
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+You can customize the interface by editing the `app/page.tsx` file and the associated styling files.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+## Deployment
 
-## Learn More
+Deploy the front-end using the Vercel Platform for optimal performance and ease of use.
 
-To learn more about Next.js, take a look at the following resources:
+For deployment instructions, refer to the [Next.js deployment documentation](https://nextjs.org/docs/deployment).
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Contributing
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+We encourage contributions to the web interface. Please follow the project's contribution guidelines when submitting changes.
 
-## Deploy on Vercel
+## License
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+The web interface is released under the [MIT License](LICENSE).
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+## Acknowledgments
+
+- Thanks to the Next.js team for creating a robust framework for React applications.
+
+## Contact
+
+For questions or support, please file an issue on the GitHub repository or contact the project maintainers directly.
+
+---
+
+For a comprehensive guide on how to use and develop the web interface, please refer to the documentation within the `www` folder.
