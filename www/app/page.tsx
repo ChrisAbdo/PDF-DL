@@ -1,43 +1,43 @@
-"use client";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { apiUrl, placeholder } from "@/lib/constants";
-import React from "react";
-import { toast } from "sonner";
+"use client"
+
+import React from "react"
+import { toast } from "sonner"
+
+import { apiUrl, placeholder } from "@/lib/constants"
+import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
 
 export default function Home() {
-  const [loading, setLoading] = React.useState<boolean>(false);
-  const [pdfUrl, setPdfUrl] = React.useState<string>("");
+  const [loading, setLoading] = React.useState<boolean>(false)
+  const [pdfUrl, setPdfUrl] = React.useState<string>("")
   const [endpoint, setEndpoint] = React.useState<string>(
     `${apiUrl}?url=${placeholder}`
-  );
-  const inputRef = React.useRef<HTMLInputElement>(null);
+  )
+  const inputRef = React.useRef<HTMLInputElement>(null)
 
   async function handleSubmit(e: any) {
-    e.preventDefault();
-    setLoading(true);
+    e.preventDefault()
+    setLoading(true)
 
-    const start = Date.now();
-
-    const form = new FormData(e.target);
-    const upload = form.get("upload");
+    const start = Date.now()
 
     try {
-      const res = await fetch(endpoint);
-      const json = await res.json(); // Parse the response as JSON
-      const obj = json.url; // Extract the URL from the JSON response
+      const res = await fetch(endpoint)
+      const json = await res.json() // Parse the response as JSON
+      const obj = json.url // Extract the URL from the JSON response
 
-      const end = Date.now() - start;
+      const end = Date.now() - start
 
-      setPdfUrl(obj); // Set the PDF URL to the extracted URL
+      setPdfUrl(obj) // Set the PDF URL to the extracted URL
 
-      toast.success(`Done in ${end / 1000} s`);
+      toast.success(`Done in ${end / 1000} s`)
     } catch (error: any) {
-      toast.error(error.message || "Something went wrong");
+      toast.error(error.message || "Something went wrong")
     }
 
-    setLoading(false);
+    setLoading(false)
   }
+
   return (
     <div>
       Endpoint: {endpoint}
@@ -46,18 +46,16 @@ export default function Home() {
         onSubmit={handleSubmit}
         onChange={({ target }: any) => {
           setEndpoint((prev) => {
-            const curr = new URL(prev);
-            const params = new URLSearchParams(curr.search);
-
-            params.set(target.name, target.checked || target.value);
-
+            const curr = new URL(prev)
+            const params = new URLSearchParams(curr.search)
+            params.set(target.name, target.checked || target.value)
             if (target.type == "checkbox" && !target.checked)
-              params.delete(target.name);
+              params.delete(target.name)
 
-            curr.search = params.toString();
+            curr.search = params.toString()
 
-            return curr.href;
-          });
+            return curr.href
+          })
         }}
         className="flex w-full flex-col space-y-2 sm:space-y-4"
       >
@@ -81,11 +79,13 @@ export default function Home() {
         )}
 
         {pdfUrl && (
-          <pre className="text-xs font-mono whitespace-pre-wrap">
-            <code className="language-html">{pdfUrl}</code>
-          </pre>
+          <>
+            <pre className="whitespace-pre-wrap font-mono text-xs">
+              <code className="language-html">{pdfUrl}</code>
+            </pre>
+          </>
         )}
       </form>
     </div>
-  );
+  )
 }
