@@ -24,12 +24,12 @@ export default function Home() {
 
     try {
       const res = await fetch(endpoint);
-      const file = await res[upload ? "text" : "blob"]();
-      const obj = upload ? file : URL.createObjectURL(file as Blob);
+      const json = await res.json(); // Parse the response as JSON
+      const obj = json.url; // Extract the URL from the JSON response
 
       const end = Date.now() - start;
 
-      setPdfUrl(obj as string);
+      setPdfUrl(obj); // Set the PDF URL to the extracted URL
 
       toast.success(`Done in ${end / 1000} s`);
     } catch (error: any) {
@@ -82,7 +82,7 @@ export default function Home() {
 
         {pdfUrl && (
           <pre className="text-xs font-mono whitespace-pre-wrap">
-            <code className="language-html">{endpoint}</code>
+            <code className="language-html">{pdfUrl}</code>
           </pre>
         )}
       </form>
