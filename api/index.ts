@@ -4,14 +4,13 @@ import { put } from "@vercel/blob";
 
 console.log("🚀 Starting port " + process.env.PORT);
 
-// const headers = {
-//   base: {
-//     "Access-Control-Allow-Origin": "*",
-//     "Access-Control-Allow-Headers": "*",
-//     "Access-Control-Allow-Methods": "GET, POST",
-//   },
-// };
-
+const headers = {
+  base: {
+    "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Headers": "*",
+    "Access-Control-Allow-Methods": "GET, POST",
+  },
+};
 const schema = z.object({
   url: z.string().url(),
 });
@@ -61,7 +60,10 @@ Bun.serve({
       // Check if the upload is successful and return the URL
       if (uploadResponse.url) {
         return new Response(JSON.stringify({ url: uploadResponse.url }), {
-          headers: { "Content-Type": "application/json" },
+          headers: {
+            "Content-Type": "application/json",
+            ...headers.base,
+          },
           status: 200,
         });
       } else {
